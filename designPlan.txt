@@ -1,0 +1,11 @@
+Key Functions
+-------------
+- Start and Stop a timer when game is being played
+- Save gaming session data
+- Look at historical gaming data
+- Custom game profiles
+  - Dropdowns to select game
+  - Save game data
+- Keep metrics on historical game data
+  - Hours played this week
+  - Historical average daily/weekly
