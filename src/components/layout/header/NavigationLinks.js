@@ -10,6 +10,9 @@ const NavigationLinks = (props) => {
 					<NavLink to='/session'>Session</NavLink>
 				</li>
 				<li>
+					<NavLink to='/history'>History</NavLink>
+				</li>
+				<li>
 					<NavLink to='/metrics'>Metrics</NavLink>
 				</li>
 				<li>

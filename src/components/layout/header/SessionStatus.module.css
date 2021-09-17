@@ -1,12 +1,13 @@
 .gameStatus ul {
-	list-style: none;
-	display: flex;
-	margin: 0;
-	padding: 0;
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 .gameStatus li {
-	margin-right: 1.5rem;
-	font-size: 1.25rem;
-	display: flex-end;
+  margin-right: 1.5rem;
+  font-size: 1.25rem;
+  display: flex-end;
+  color: #88dfdf;
 }

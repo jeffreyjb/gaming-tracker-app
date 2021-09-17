@@ -9,3 +9,14 @@ Key Functions
 - Keep metrics on historical game data
   - Hours played this week
   - Historical average daily/weekly
+- Game Session
+  - Initial State:
+    - Choose a game
+    - Start a session
+  - Currently Playing State:
+    - Switch games
+      - Auto pause session
+    - Pause session
+    - Resume session
+    - End session
+  - Manual Add Session Data
