@@ -1,17 +1,13 @@
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Layout from './components/layout/Layout';
-import SessionContext from './store/session-context';
+import { SessionContextProvider } from './store/session-context';
 
 import Session from './pages/Session';
 
 function App() {
 	return (
-    <SessionContext.Provider value={{
-      statusText: 'offline',
-      isPlaying: false,
-      currentGame: ''
-    }}>
+    <SessionContextProvider>
       <Layout>
         <Switch>
           <Route path='/' exact>
@@ -34,7 +30,7 @@ function App() {
           </Route>
         </Switch>
       </Layout>
-      </SessionContext.Provider>
+    </SessionContextProvider>
 	);
 }
 
