@@ -6,10 +6,14 @@ import SessionContext from '../../store/session-context';
 import SessionButton from '../../components/UI/SessionButton';
 import GameSelect from './GameSelect';
 
+import useHttp from '../../hooks/use-http';
+
 
 const ConfigureSession = () => {
   const [ pauseResumeButtonTitle, setPauseResumeButtonTitle ] = useState('Pause Session');
   const [ validGame, setIsValidGame ] = useState(true);
+
+  const { sendRequest: saveSessionData } = useHttp();
 
   const tmrCtx = useContext(TimerContext);
   const sesCtx = useContext(SessionContext);
@@ -19,7 +23,6 @@ const ConfigureSession = () => {
   const startSession = () => {
     if(sesCtx.currentGame === ''){
       setIsValidGame(false);
-      console.log('nailed it');
       return;
     }
 
@@ -36,8 +39,33 @@ const ConfigureSession = () => {
     tmrCtx.stopTimer();
     setPauseResumeButtonTitle('Pause Session');
 
+    // Save game from session
+    const sessionGame = sesCtx.currentGame;
+
     sesCtx.setIsPlaying(false);
     sesCtx.setStatusText('offline');
+    sesCtx.setCurrentGame('');
+
+    // Save data
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+
+    const postData = {game: sessionGame, timer: tmrCtx.timerVal, timerStr: tmrCtx.timer};
+    const urlString = 'https://react-http-demo-90001-default-rtdb.firebaseio.com/sessions/' + yyyy + '/' + mm + '/' + dd + '.json';
+   
+    saveSessionData(
+      {
+        url: urlString,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: postData
+      },
+      ()=>{}
+    );
   }
 
   const pauseResumeHandler = () => {

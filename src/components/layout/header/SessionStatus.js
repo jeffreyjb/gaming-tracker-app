@@ -12,7 +12,7 @@ const SessionStatus = (props) => {
 		<div className={classes.gameStatus}>
 			<ul>
         <li>Currently {sesCtx.statusText}</li>
-				<li>{timerCtx.timerVal}</li>
+				<li>{timerCtx.timer}</li>
 			</ul>
 		</div>
 	);

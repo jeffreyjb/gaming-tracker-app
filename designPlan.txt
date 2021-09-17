@@ -20,3 +20,10 @@ Key Functions
     - Resume session
     - End session
   - Manual Add Session Data
+
+  - Session Data:
+  - sessions
+    - yr
+      - month
+        - day
+        
