@@ -3,7 +3,7 @@ import { Fragment, useState, useContext } from 'react';
 import TimerContext from '../../store/timer-context';
 import SessionContext from '../../store/session-context';
 
-import SessionButton from '../../components/UI/SessionButton';
+import Button from '../../components/UI/Button';
 import GameSelect from './GameSelect';
 
 import useHttp from '../../hooks/use-http';
@@ -82,9 +82,9 @@ const ConfigureSession = () => {
     <Fragment>
       <GameSelect/>
       {!validGame && warningText}
-      <SessionButton disabled={sesCtx.isPlaying} onClick={()=>{startSession()}}>Start Session</SessionButton>
-      <SessionButton disabled={!sesCtx.isPlaying} onClick={pauseResumeHandler}>{pauseResumeButtonTitle}</SessionButton>
-      <SessionButton disabled={!sesCtx.isPlaying} onClick={()=>{endSession()}}>End Session</SessionButton>
+      <Button disabled={sesCtx.isPlaying} onClick={()=>{startSession()}}>Start Session</Button>
+      <Button disabled={!sesCtx.isPlaying} onClick={pauseResumeHandler}>{pauseResumeButtonTitle}</Button>
+      <Button disabled={!sesCtx.isPlaying} onClick={()=>{endSession()}}>End Session</Button>
     </Fragment>
     
   );

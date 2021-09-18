@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classes from './SessionButton.module.css';
+import classes from './Button.module.css';
 
 const SessionButton = (props) => {
   return (
