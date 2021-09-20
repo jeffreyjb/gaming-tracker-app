@@ -1,0 +1,8 @@
+.ListItem {
+	margin: 0;
+	display: flex;
+}
+
+.ListItem > * {
+	margin: 0 10px;
+}
