@@ -13,47 +13,87 @@ const HistoryLookup = (props) => {
 
 	const { sendRequest: fetchSession } = useHttp();
 
-	const generateSessionURLs = () => {
-		const urlObject = {};
-		const baseURL =
-			'https://react-http-demo-90001-default-rtdb.firebaseio.com/';
+	const updateActiveSessions = (sessionsObj) => {
 
-		/* let maxDay = 28;
-      let maxMonth = 12;
+    const activeSessions = [];
+
+    let maxDays = 0;
+    let currentYear = parseInt(selectedYear);
+    let currentMonth = parseInt(selectedMonth);
+    let currentDay = parseInt(selectedDay);
       
-      for (i = 0; i < 7; i++){
-        
+    for(let i = 0; i < 7; i++){
+      
+      if (currentMonth === 1 || currentMonth === 3 || currentMonth === 5 || currentMonth === 7 || currentMonth === 8 || currentMonth === 10 || currentMonth === 12 ){
+        maxDays = 31;
+      } else if (currentMonth === 2) {
+        if (currentYear % 4 === 0){
 
-        urlObject.i =
-        baseURL +
-        selectedYear +
-        '/' +
-        selectedMonth +
-        '/' +
-        selectedDay +
-        '/.json';
-      }*/
+        maxDays = 29;
+        } else {
+          maxDays = 28;
+        }
+      } else {
+        maxDays = 30;
+      }
+      // console.log('Max Days: ' + maxDays);
 
-		return urlObject;
+      if (currentDay > maxDays){
+        currentDay = 1;
+        currentMonth++;
+        if (currentMonth > 12){
+          currentMonth = 1;
+          currentYear++;
+        }
+      }
+
+      const strYear = currentYear.toString();
+      const paddedMonth = currentMonth.toString().padStart(2,'0');
+      const paddedDay = currentDay.toString().padStart(2,'0');
+
+      if(!sessionsObj[strYear]){
+        activeSessions.push(undefined);
+      }else if (!sessionsObj[strYear][paddedMonth]){
+        activeSessions.push(undefined);
+      } else {
+        activeSessions.push(sessionsObj[strYear][paddedMonth][paddedDay]);
+      }
+      
+
+      // console.log(`M: ${currentMonth} D: ${currentDay} Y: ${currentYear}`);
+      
+      currentDay++;
+    }
+    // console.log(activeSessions);
+		return activeSessions;
 	};
 
 	const fetchSessions = () => {
-		console.log('fetching sessions...');
+		
 
-		const urls = generateSessionURLs();
-		console.log(urls);
+		const transformData = (sessionsObj) => {
+      console.log('fetching sessions...');
+      props.saveFetchedSession(sessionsObj);
 
-		// const transformData = () => {
+      const ses = updateActiveSessions(sessionsObj);
+      props.setActiveSessionData(ses);
+    
+      props.setSessionLoaded(true);
+		};
 
-		// };
+    if(!props.alreadyFetchedData){
+      fetchSession(
+        {
+          url:
+            'https://react-http-demo-90001-default-rtdb.firebaseio.com/sessions.json'
+        },
+        transformData
+      );
+    } else {
+      const ses = updateActiveSessions(props.fetchedSessionData);
+      props.setActiveSessionData(ses);
+    }
 
-		// fetchSession(
-		// 	{
-		// 		url:
-		// 			'https://react-http-demo-90001-default-rtdb.firebaseio.com/gamesList.json'
-		// 	},
-		// 	transformData
-		// );
 	};
 
 	const grabHistory = () => {
@@ -67,10 +107,8 @@ const HistoryLookup = (props) => {
 			return;
 		}
 
-		// Get date from selects
+		// Get fetch session data
 		fetchSessions();
-
-		// Determine data to grab from server
 
 		// Pass data to Table
 		setDateIsValid(true);
