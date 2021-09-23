@@ -14,86 +14,87 @@ const HistoryLookup = (props) => {
 	const { sendRequest: fetchSession } = useHttp();
 
 	const updateActiveSessions = (sessionsObj) => {
+		const activeSessions = [];
 
-    const activeSessions = [];
+		let maxDays = 0;
+		let currentYear = parseInt(selectedYear);
+		let currentMonth = parseInt(selectedMonth);
+		let currentDay = parseInt(selectedDay);
 
-    let maxDays = 0;
-    let currentYear = parseInt(selectedYear);
-    let currentMonth = parseInt(selectedMonth);
-    let currentDay = parseInt(selectedDay);
-      
-    for(let i = 0; i < 7; i++){
-      
-      if (currentMonth === 1 || currentMonth === 3 || currentMonth === 5 || currentMonth === 7 || currentMonth === 8 || currentMonth === 10 || currentMonth === 12 ){
-        maxDays = 31;
-      } else if (currentMonth === 2) {
-        if (currentYear % 4 === 0){
+		for (let i = 0; i < 7; i++) {
+			if (
+				currentMonth === 1 ||
+				currentMonth === 3 ||
+				currentMonth === 5 ||
+				currentMonth === 7 ||
+				currentMonth === 8 ||
+				currentMonth === 10 ||
+				currentMonth === 12
+			) {
+				maxDays = 31;
+			} else if (currentMonth === 2) {
+				if (currentYear % 4 === 0) {
+					maxDays = 29;
+				} else {
+					maxDays = 28;
+				}
+			} else {
+				maxDays = 30;
+			}
+			// console.log('Max Days: ' + maxDays);
 
-        maxDays = 29;
-        } else {
-          maxDays = 28;
-        }
-      } else {
-        maxDays = 30;
-      }
-      // console.log('Max Days: ' + maxDays);
+			if (currentDay > maxDays) {
+				currentDay = 1;
+				currentMonth++;
+				if (currentMonth > 12) {
+					currentMonth = 1;
+					currentYear++;
+				}
+			}
 
-      if (currentDay > maxDays){
-        currentDay = 1;
-        currentMonth++;
-        if (currentMonth > 12){
-          currentMonth = 1;
-          currentYear++;
-        }
-      }
+			const strYear = currentYear.toString();
+			const paddedMonth = currentMonth.toString().padStart(2, '0');
+			const paddedDay = currentDay.toString().padStart(2, '0');
 
-      const strYear = currentYear.toString();
-      const paddedMonth = currentMonth.toString().padStart(2,'0');
-      const paddedDay = currentDay.toString().padStart(2,'0');
+			if (!sessionsObj[strYear]) {
+				activeSessions.push(undefined);
+			} else if (!sessionsObj[strYear][paddedMonth]) {
+				activeSessions.push(undefined);
+			} else {
+				activeSessions.push(sessionsObj[strYear][paddedMonth][paddedDay]);
+			}
 
-      if(!sessionsObj[strYear]){
-        activeSessions.push(undefined);
-      }else if (!sessionsObj[strYear][paddedMonth]){
-        activeSessions.push(undefined);
-      } else {
-        activeSessions.push(sessionsObj[strYear][paddedMonth][paddedDay]);
-      }
-      
+			// console.log(`M: ${currentMonth} D: ${currentDay} Y: ${currentYear}`);
 
-      // console.log(`M: ${currentMonth} D: ${currentDay} Y: ${currentYear}`);
-      
-      currentDay++;
-    }
-    // console.log(activeSessions);
+			currentDay++;
+		}
+		// console.log(activeSessions);
 		return activeSessions;
 	};
 
 	const fetchSessions = () => {
-		
-
 		const transformData = (sessionsObj) => {
-      console.log('fetching sessions...');
-      props.saveFetchedSession(sessionsObj);
+			console.log('fetching sessions...');
+			props.saveFetchedSession(sessionsObj);
 
-      const ses = updateActiveSessions(sessionsObj);
-      props.setActiveSessionData(ses);
-    
-      props.setSessionLoaded(true);
+			const ses = updateActiveSessions(sessionsObj);
+			props.setActiveSessionData(ses);
+
+			props.setSessionLoaded(true);
 		};
 
-    if(!props.alreadyFetchedData){
-      fetchSession(
-        {
-          url:
-            'https://react-http-demo-90001-default-rtdb.firebaseio.com/sessions.json'
-        },
-        transformData
-      );
-    } else {
-      const ses = updateActiveSessions(props.fetchedSessionData);
-      props.setActiveSessionData(ses);
-    }
-
+		if (!props.alreadyFetchedData) {
+			fetchSession(
+				{
+					url:
+						'https://react-http-demo-90001-default-rtdb.firebaseio.com/sessions.json'
+				},
+				transformData
+			);
+		} else {
+			const ses = updateActiveSessions(props.fetchedSessionData);
+			props.setActiveSessionData(ses);
+		}
 	};
 
 	const grabHistory = () => {
