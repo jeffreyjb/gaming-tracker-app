@@ -140,7 +140,7 @@ export const HistoryContextProvider = (props) => {
 			maxDays = 30;
 		}
 
-		for (let i = 0; i < 7; i++) {
+		for (let i = 0; i < 6; i++) {
 			currentDay++;
 			if (currentDay > maxDays) {
 				currentDay = 1;

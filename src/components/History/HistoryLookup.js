@@ -50,9 +50,9 @@ const HistoryLookup = () => {
 	const grabHistory = () => {
 		// Validate the date has been properly selected
 		if (
-			hstCtx.selectedDay.trim() === '' ||
-			hstCtx.selectedMonth.trim() === '' ||
-			hstCtx.selectedYear.trim() === ''
+			hstCtx.selectedDay.toString().trim() === '' ||
+			hstCtx.selectedMonth.toString().trim() === '' ||
+			hstCtx.selectedYear.toString().trim() === ''
 		) {
 			setDateIsValid(false);
 			return;

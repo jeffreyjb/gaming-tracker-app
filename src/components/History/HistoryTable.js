@@ -27,8 +27,8 @@ const HistoryTable = () => {
 		<Fragment>
 			<HistoryLookup />
 			<br />
-			{hstCtx.activeSession && <HistoryTableData />}
 			{hstCtx.activeSession && <HistoryNavigator />}
+			{hstCtx.activeSession && <HistoryTableData />}
 		</Fragment>
 	);
 };

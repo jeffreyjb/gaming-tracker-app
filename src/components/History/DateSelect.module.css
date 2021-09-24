@@ -1,14 +1,7 @@
-.gameDropdown {
-	margin: 0 0 30px 0;
-}
+.selects {
+	margin: 0 20px 0 0;
 
-.gameDropdown p {
-	display: inline;
-}
-
-.gameDropdown select {
-	margin-left: 20px;
-	width: 250px;
+	width: 150px;
 	padding: 5px 35px 5px 5px;
 	font-size: 16px;
 	border: 1px solid #ccc;
@@ -18,5 +11,5 @@
 	appearance: none;
 	background: rgba(255, 255, 255, 0.6);
 	/* background: url(https://stackoverflow.com/favicon.ico) 96% / 15% no-repeat
-    #eee; */
+		#eee; */
 }

@@ -2,6 +2,9 @@ import { Fragment, useEffect, useContext, useState } from 'react';
 
 import HistoryContext from '../../store/history-context';
 
+import CellRow from './Table/CellRow';
+import Cell from './Table/Cell';
+
 const HistoryTableData = () => {
 	const [ sessJsxArr, setSessJsxArr ] = useState([]);
 	const [ colTitles, setColTitles ] = useState([]);
@@ -20,10 +23,24 @@ const HistoryTableData = () => {
 						const tmpJsx = [];
 						for (const key in el) {
 							tmpInd++;
-							tmpJsx.push(
-								<li key={tmpInd}>{`Date: ${el[key].date}, Game: ${el[key]
-									.game}, Session Length: ${el[key].timerStr}`}</li>
+							// tmpJsx.push(
+							// 	<li key={tmpInd}>{`Date: ${el[key].date}, Game: ${el[key]
+							// 		.game}, Session Length: ${el[key].timerStr}`}</li>
+							// );
+							const tableRow = (
+								<CellRow key={tmpInd}>
+									<Cell>
+										<p>{`${el[key].date}`}</p>
+									</Cell>
+									<Cell>
+										<p>{`${el[key].game}`}</p>
+									</Cell>
+									<Cell>
+										<p>{`${el[key].timerStr}`}</p>
+									</Cell>
+								</CellRow>
 							);
+							tmpJsx.push(tableRow);
 						}
 						return tmpJsx;
 					}
@@ -31,11 +48,11 @@ const HistoryTableData = () => {
 				});
 
 				const colTitlesJsx = (
-					<Fragment>
-						<div>Date</div>
-						<div>Game</div>
-						<div>Session Length</div>
-					</Fragment>
+					<CellRow>
+						<Cell titleCell>Date</Cell>
+						<Cell titleCell>Game</Cell>
+						<Cell titleCell>Session Length</Cell>
+					</CellRow>
 				);
 
 				if (tmpInd === 0) {
@@ -45,15 +62,14 @@ const HistoryTableData = () => {
 					setColTitles(colTitlesJsx);
 					setDisplayTable(true);
 				}
-
-				if (hstCtx.sessionDates.startDate !== undefined) {
-					setDateRangeString(
-						<p>{`${hstCtx.sessionDates.startDate} - ${hstCtx.sessionDates
-							.endDate}`}</p>
-					);
-				}
-
 				setSessJsxArr(jsxArr);
+			}
+
+			if (hstCtx.sessionDates.startDate !== undefined) {
+				setDateRangeString(
+					<p>{`${hstCtx.sessionDates.startDate} - ${hstCtx.sessionDates
+						.endDate}`}</p>
+				);
 			}
 		},
 		[
@@ -68,7 +84,7 @@ const HistoryTableData = () => {
 		<Fragment>
 			{hstCtx.sessionDates.startDate !== undefined && dateRangeString}
 			{displayTable && colTitles}
-			{displayTable && <ul>{sessJsxArr}</ul>}
+			{displayTable && <div>{sessJsxArr}</div>}
 			{!displayTable && <p>No sessions found!</p>}
 		</Fragment>
 	);

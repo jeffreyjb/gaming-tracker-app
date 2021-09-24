@@ -1,5 +1,7 @@
 import { Fragment, useRef } from 'react';
 
+import classes from './DateSelect.module.css';
+
 const DateSelect = (props) => {
 	const selectRef = useRef();
 
@@ -23,6 +25,7 @@ const DateSelect = (props) => {
 
 	const daySelectElement = (
 		<select
+			className={classes.selects}
 			defaultValue=''
 			ref={selectRef}
 			name='day-options'
@@ -66,6 +69,7 @@ const DateSelect = (props) => {
 
 	const monthSelectElement = (
 		<select
+			className={classes.selects}
 			defaultValue=''
 			ref={selectRef}
 			name='month-options'
@@ -90,6 +94,7 @@ const DateSelect = (props) => {
 
 	const yearSelectElement = (
 		<select
+			className={classes.selects}
 			defaultValue=''
 			ref={selectRef}
 			name='year-options'

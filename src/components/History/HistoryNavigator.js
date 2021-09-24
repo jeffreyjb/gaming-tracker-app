@@ -4,6 +4,8 @@ import HistoryContext from '../../store/history-context';
 
 import Button from '../UI/Button';
 
+import classes from './HistoryNavigator.module.css';
+
 const HistoryNavigator = (props) => {
 	const hstCtx = useContext(HistoryContext);
 
@@ -19,8 +21,14 @@ const HistoryNavigator = (props) => {
 
 	return (
 		<Fragment>
-			<Button onClick={showPreviousWeek}>Previous</Button>
-			<Button onClick={showNextWeek}>Next</Button>
+			<Button
+				parentClassName={classes.histNavButton}
+				onClick={showPreviousWeek}>
+				Previous
+			</Button>
+			<Button parentClassName={classes.histNavButton} onClick={showNextWeek}>
+				Next
+			</Button>
 		</Fragment>
 	);
 };

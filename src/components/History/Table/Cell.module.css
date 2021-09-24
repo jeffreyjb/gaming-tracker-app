@@ -1,0 +1,21 @@
+.cellStyle {
+	width: 200px;
+	height: 40px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	text-align: left;
+}
+
+.cellStyle p {
+	padding-left: 10px;
+}
+
+.cellTitleStyle {
+	width: 200px;
+	height: 50px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	margin: auto;
+	text-align: center;
+	font-weight: bold;
+	font-size: 1.2em;
+	padding-top: 10px;
+}
