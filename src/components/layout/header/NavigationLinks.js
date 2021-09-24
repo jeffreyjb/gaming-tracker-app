@@ -7,16 +7,24 @@ const NavigationLinks = (props) => {
 		<nav className={classes.nav}>
 			<ul>
 				<li>
-					<NavLink to='/session'>Session</NavLink>
+					<NavLink activeClassName={classes.active} to='/session'>
+						Session
+					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/history'>History</NavLink>
+					<NavLink activeClassName={classes.active} to='/history'>
+						History
+					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/metrics'>Metrics</NavLink>
+					<NavLink activeClassName={classes.active} to='/metrics'>
+						Metrics
+					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/manage-games'>Manage Games</NavLink>
+					<NavLink activeClassName={classes.active} to='/manage-games'>
+						Manage
+					</NavLink>
 				</li>
 			</ul>
 		</nav>

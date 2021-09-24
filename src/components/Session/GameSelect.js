@@ -22,12 +22,29 @@ const GameSelect = () => {
 			if (gmsCtx.savedGameList !== []) {
 				let gamesList = [];
 				gamesList = gmsCtx.savedGameList.map((gameObj, ind) => {
-					return <option key={'ind' + ind}>{gameObj.title}</option>;
+					return (
+						<option value={gameObj.title} key={'ind' + ind}>
+							{gameObj.title}
+						</option>
+					);
 				});
 				setLoadedGamesList(gamesList);
 			}
 		},
 		[ gmsCtx, gmsCtx.gamesLoaded, gmsCtx.savedGameList ]
+	);
+
+	useEffect(
+		() => {
+			for (const opt of loadedGamesList) {
+				if (opt.props.value === sesCtx.currentGame) {
+					const tmpStr = opt.key.toString();
+					const selInd = parseInt(tmpStr[tmpStr.length - 1]);
+					selectRef.current.selectedIndex = selInd + 1;
+				}
+			}
+		},
+		[ sesCtx, sesCtx.currentGame, loadedGamesList ]
 	);
 
 	const gameChangeHandler = () => {

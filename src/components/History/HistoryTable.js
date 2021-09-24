@@ -25,10 +25,10 @@ const HistoryTable = () => {
 
 	return (
 		<Fragment>
+			<HistoryLookup />
+			<br />
 			{hstCtx.activeSession && <HistoryTableData />}
 			{hstCtx.activeSession && <HistoryNavigator />}
-			<br />
-			<HistoryLookup />
 		</Fragment>
 	);
 };

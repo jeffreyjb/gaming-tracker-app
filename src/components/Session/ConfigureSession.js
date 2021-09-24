@@ -9,6 +9,8 @@ import GameSelect from './GameSelect';
 
 import useHttp from '../../hooks/use-http';
 
+import classes from './ConfigureSession.module.css';
+
 const ConfigureSession = () => {
 	const [ pauseResumeButtonTitle, setPauseResumeButtonTitle ] = useState(
 		'Pause Session'
@@ -104,19 +106,24 @@ const ConfigureSession = () => {
 
 	return (
 		<Fragment>
-			<GameSelect />
+			{!sesCtx.isPlaying && <GameSelect />}
 			{!validGame && warningText}
 			<Button
+				parentClassName={classes.sessionButton}
 				disabled={sesCtx.isPlaying}
 				onClick={() => {
 					startSession();
 				}}>
 				Start Session
 			</Button>
-			<Button disabled={!sesCtx.isPlaying} onClick={pauseResumeHandler}>
+			<Button
+				parentClassName={classes.sessionButton}
+				disabled={!sesCtx.isPlaying}
+				onClick={pauseResumeHandler}>
 				{pauseResumeButtonTitle}
 			</Button>
 			<Button
+				parentClassName={classes.sessionButton}
 				disabled={!sesCtx.isPlaying}
 				onClick={() => {
 					endSession();

@@ -1,6 +1,8 @@
 main {
-  height: 85vh;
-  width: 100%;
-  background-color: rgb(14, 30, 41);
-  color: white;
+	height: 90vh;
+	width: 100%;
+	background-color: rgb(25, 31, 28);
+	color: white;
+	text-align: center;
+	margin: auto;
 }
