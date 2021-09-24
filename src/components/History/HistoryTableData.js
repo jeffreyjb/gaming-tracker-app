@@ -1,16 +1,21 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useContext, useState } from 'react';
 
-const HistoryTableData = (props) => {
+import HistoryContext from '../../store/history-context';
+
+const HistoryTableData = () => {
 	const [ sessJsxArr, setSessJsxArr ] = useState([]);
 	const [ colTitles, setColTitles ] = useState([]);
 	const [ displayTable, setDisplayTable ] = useState(false);
+	const [ dateRangeString, setDateRangeString ] = useState('');
+
+	const hstCtx = useContext(HistoryContext);
 
 	useEffect(
 		() => {
-			if (!props.noSessionsFound) {
+			if (!hstCtx.isSessionEmpty) {
 				let tmpInd = 0;
 
-				const jsxArr = props.sess.map((el, ind) => {
+				const jsxArr = hstCtx.activeSession.map((el, ind) => {
 					if (el !== undefined) {
 						const tmpJsx = [];
 						for (const key in el) {
@@ -41,22 +46,39 @@ const HistoryTableData = (props) => {
 					setDisplayTable(true);
 				}
 
+				if (hstCtx.sessionDates.startDate !== undefined) {
+					setDateRangeString(
+						<p>{`${hstCtx.sessionDates.startDate} - ${hstCtx.sessionDates
+							.endDate}`}</p>
+					);
+				}
+
 				setSessJsxArr(jsxArr);
 			}
 		},
-		[ props.sess, props.noSessionsFound ]
+		[
+			hstCtx,
+			hstCtx.activeSession,
+			hstCtx.isSessionEmpty,
+			hstCtx.sessionLoaded
+		]
 	);
 
 	return (
 		<Fragment>
+			{hstCtx.sessionDates.startDate !== undefined && dateRangeString}
 			{displayTable && colTitles}
 			{displayTable && <ul>{sessJsxArr}</ul>}
-			{!displayTable && <div>No sessions found!</div>}
+			{!displayTable && <p>No sessions found!</p>}
 		</Fragment>
 	);
 };
 
 export default HistoryTableData;
+
+// {displayTable && (
+//   <p>{`${hstCtx.dateObj.startDate} - ${hstCtx.dateObj.endDate}`}</p>
+// )}
 
 //console.log(el[key].game);
 // for (const curr in el[Object.keys(el)]) {

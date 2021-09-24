@@ -1,43 +1,34 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
 
 import HistoryTableData from './HistoryTableData';
+import HistoryNavigator from './HistoryNavigator';
 import HistoryLookup from './HistoryLookup';
 
-const HistoryTable = (props) => {
-	const [ sessionData, setSessionData ] = useState(null);
-	const [ activeSession, setActiveSession ] = useState(null);
-	const [ sessionLoaded, setSessionLoaded ] = useState(false);
-	const [ isSessionEmpty, setIsSessionEmpty ] = useState(true);
+import HistoryContext from '../../store/history-context';
+
+const HistoryTable = () => {
+	const hstCtx = useContext(HistoryContext);
 
 	useEffect(
 		() => {
-			if (activeSession) {
-				for (const session in activeSession) {
-					if (activeSession[session] !== undefined) {
-						setIsSessionEmpty(false);
+			if (hstCtx.activeSession) {
+				for (const session in hstCtx.activeSession) {
+					if (hstCtx.activeSession[session] !== undefined) {
+						hstCtx.setIsSessionEmpty(false);
 						break;
 					}
 				}
 			}
 		},
-		[ activeSession ]
+		[ hstCtx, hstCtx.activeSession ]
 	);
 
 	return (
 		<Fragment>
-			{activeSession && (
-				<HistoryTableData
-					noSessionsFound={isSessionEmpty}
-					sess={activeSession}
-				/>
-			)}
-			<HistoryLookup
-				saveFetchedSession={setSessionData}
-				fetchedSessionData={sessionData}
-				setActiveSessionData={setActiveSession}
-				alreadyFetchedData={sessionLoaded}
-				setSessionLoaded={setSessionLoaded}
-			/>
+			{hstCtx.activeSession && <HistoryTableData />}
+			{hstCtx.activeSession && <HistoryNavigator />}
+			<br />
+			<HistoryLookup />
 		</Fragment>
 	);
 };

@@ -2,6 +2,7 @@ import { Fragment, useState, useContext } from 'react';
 
 import TimerContext from '../../store/timer-context';
 import SessionContext from '../../store/session-context';
+import HistoryContext from '../../store/history-context';
 
 import Button from '../../components/UI/Button';
 import GameSelect from './GameSelect';
@@ -18,6 +19,7 @@ const ConfigureSession = () => {
 
 	const tmrCtx = useContext(TimerContext);
 	const sesCtx = useContext(SessionContext);
+	const hisCtx = useContext(HistoryContext);
 
 	const warningText = (
 		<p style={{ color: 'red' }}>Please select a valid game!!</p>
@@ -82,6 +84,12 @@ const ConfigureSession = () => {
 			},
 			() => {}
 		);
+
+		// Make sure to inform history component it needs to refresh the loaded history list
+		hisCtx.setSessionLoaded(false);
+		hisCtx.setIsSessionEmpty(true);
+		hisCtx.setActiveSession(null);
+		hisCtx.setSessionData(null);
 	};
 
 	const pauseResumeHandler = () => {
