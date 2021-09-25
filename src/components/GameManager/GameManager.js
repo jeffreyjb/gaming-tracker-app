@@ -6,6 +6,8 @@ import ListOfGames from './ListOfGames';
 
 import GamesContext from '../../store/games-context';
 
+import classes from './GameManager.module.css';
+
 const GameManager = () => {
 	const [ isEditing, setIsEditing ] = useState(false);
 	const [ isAddingGame, setIsAddingGame ] = useState(false);
@@ -39,6 +41,25 @@ const GameManager = () => {
 		setIsEditing(false);
 	};
 
+	const managementButtons = (
+		<div className={classes.gameManageButtons}>
+			<Button onClick={addGame}>Add Game</Button>
+			<Button onClick={updateGames}>Apply</Button>
+			<Button onClick={cancelGameUpdate}>Cancel</Button>
+		</div>
+	);
+
+	const editButtons = (
+		<div className={classes.editButtons}>
+			<Button
+				onClick={() => {
+					setIsEditing(true);
+				}}>
+				Edit
+			</Button>
+		</div>
+	);
+
 	return (
 		<Fragment>
 			{isAddingGame && (
@@ -65,6 +86,8 @@ const GameManager = () => {
 					}}
 				/>
 			)}
+
+			<h2 className={classes.title}>Games</h2>
 			<ListOfGames
 				editingGames={isEditing}
 				editGameHandler={() => {
@@ -74,17 +97,8 @@ const GameManager = () => {
 					setIsDeletingGame(true);
 				}}
 			/>
-			{!isEditing && (
-				<Button
-					onClick={() => {
-						setIsEditing(true);
-					}}>
-					Edit
-				</Button>
-			)}
-			{isEditing && <Button onClick={addGame}>Add Game</Button>}
-			{isEditing && <Button onClick={updateGames}>Apply</Button>}
-			{isEditing && <Button onClick={cancelGameUpdate}>Cancel</Button>}
+			{!isEditing && editButtons}
+			{isEditing && managementButtons}
 		</Fragment>
 	);
 };

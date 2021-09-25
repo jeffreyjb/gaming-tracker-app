@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 
 import GameItem from './GameItem';
+import GameTable from './GameTable/GameTable';
 
 import GamesContext from '../../store/games-context';
 
@@ -38,7 +39,7 @@ const ListOfGames = (props) => {
 		]
 	);
 
-	return <ul className={classes.ListContainer}>{games}</ul>;
+	return <GameTable className={classes.ListContainer}>{games}</GameTable>;
 };
 
 export default ListOfGames;

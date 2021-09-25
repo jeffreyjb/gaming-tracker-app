@@ -1,8 +1,32 @@
-.ListItem {
-	margin: 0;
+.card {
 	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: rgb(0, 70, 58);
+	margin: 5px;
+	border-radius: 10px;
+	height: 90px;
+	/* border: 1px greenyellow solid; */
 }
 
-.ListItem > * {
-	margin: 0 10px;
+.gameInfo {
+	list-style: none;
+	display: flex;
+	/* border: 1px orchid solid; */
+}
+
+.gameInfo li {
+	margin-right: 10px;
+	font-size: 1.4em;
+}
+
+.editButtons {
+	list-style: none;
+	display: flex;
+	/* border: 1px blue solid; */
+}
+
+.editButtons li {
+	display: flex-end;
+	margin-right: 1.5rem;
 }

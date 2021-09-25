@@ -1,0 +1,9 @@
+.games {
+	width: 800px;
+	/* border: 1px solid red; */
+	margin-left: 35px;
+	max-height: 50vh;
+	min-height: 50vh;
+	height: 50vh;
+	overflow: auto;
+}

@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, Fragment } from 'react';
 
 import GamesContext from '../../store/games-context';
 import Button from '../UI/Button';
@@ -18,13 +18,25 @@ const GameItem = (props) => {
 		props.editGameHandler();
 	};
 
+	const editButtons = (
+		<ul className={classes.editButtons}>
+			<li>
+				<Button onClick={editHandler}>Edit Details</Button>
+			</li>
+			<li>
+				<Button onClick={deleteHandler}>Delete Game</Button>
+			</li>
+		</ul>
+	);
+
 	return (
-		<li className={classes.ListItem}>
-			<p>{props.game}</p>
-			<p>{props.gameGenre}</p>
-			{props.editMode && <Button onClick={editHandler}>Edit Details</Button>}
-			{props.editMode && <Button onClick={deleteHandler}>X</Button>}
-		</li>
+		<div className={classes.card}>
+			<ul className={classes.gameInfo}>
+				<li>Game: {props.game},</li>
+				<li>Genre: {props.gameGenre}</li>
+			</ul>
+			{props.editMode && editButtons}
+		</div>
 	);
 };
 

@@ -22,7 +22,9 @@ const ManageGames = () => {
 	return (
 		<Fragment>
 			<h1 style={{ margin: 0, padding: '10px' }}>Manage Games</h1>
-			{!editingGames && <Button onClick={launchGameManager}>Edit Games</Button>}
+			{!editingGames && (
+				<Button onClick={launchGameManager}>Load Game List</Button>
+			)}
 			{editingGames && <GameManager />}
 		</Fragment>
 	);

@@ -106,8 +106,6 @@ const ConfigureSession = () => {
 
 	return (
 		<Fragment>
-			{!sesCtx.isPlaying && <GameSelect />}
-			{!validGame && warningText}
 			<Button
 				parentClassName={classes.sessionButton}
 				disabled={sesCtx.isPlaying}
@@ -130,6 +128,8 @@ const ConfigureSession = () => {
 				}}>
 				End Session
 			</Button>
+			{!sesCtx.isPlaying && <GameSelect />}
+			{!validGame && warningText}
 		</Fragment>
 	);
 };
